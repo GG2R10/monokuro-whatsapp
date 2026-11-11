@@ -9,7 +9,9 @@
     "text-color": "#cfcfcf",
     "ring-new-color": "#9bd161",
     "ring-seen-color": "#555555",
-    "wp-brightness": 80,
-    "wp-fit": "cover"
+    "wp-brightness": 90,
+    "wp-fit": "cover",
+    "wp-contrast": 128,
+    "wp-opacity": 60
   }
 }
