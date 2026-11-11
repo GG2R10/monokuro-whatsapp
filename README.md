@@ -10,8 +10,8 @@
 | Dark room | Edgerunners - moon |
 | --- | --- |
 | ![Dark room](docs/theme-dark-room.png) | ![Edgerunners - moon](docs/theme-edgerunners-moon.png) |
-| **Neon hunter** | **DedSec mono** |
-| ![Neon hunter](docs/theme-neon-hunter.png) | ![DedSec mono](docs/theme-dedsec-mono.png) |
+| **ULTRAKILL** | **DedSec mono** |
+| ![ULTRAKILL](docs/theme-ultrakill.png) | ![DedSec mono](docs/theme-dedsec-mono.png) |
 
 Avatars, names and chat-list previews are redacted in these screenshots.
 </details>
@@ -56,7 +56,7 @@ A theme is a palette plus an optional wallpaper, stored as one small JSON file i
 | --- | --- |
 | `edgerunners-moon` | Edgerunners - moon |
 | `dark-room` | Dark room |
-| `neon-hunter` | Neon hunter |
+| `ultrakill` | ULTRAKILL |
 | `dedsec-mono` | DedSec mono |
 
 The wallpapers of the presets are third-party artwork and are **not** distributed (see [Credits](#credits)); the JSON files only hold the palette and the
@@ -202,17 +202,17 @@ MK_WALLPAPER=path/to/image.jpg [MK_WP_BRIGHTNESS=60 MK_WP_BLUR=0 MK_WP_GRAY=0 ..
 
 ## Credits
 
-* **Aesthetic and idea:** *monokuro world* (1-bit black and white pixel look). _Author / link to be added._
+* **Aesthetic and idea:** *monokuro world* by [@puriririririri](https://twitter.com/puriririririri) and [@mimizuu_uu](https://twitter.com/mimizuu_uu), with [@oekakiconnect](https://twitter.com/oekakiconnect), from [@monokurocorp](https://twitter.com/monokurocorp) on Twitter.
 * **Font:** [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) by CodeMan38, SIL Open Font License 1.1.
 * **Cat logo:** pixel art drawn for this project (`assets/cat-logo/`).
-* **Theme wallpapers** (not distributed, used to derive the preset palettes):
+* **Theme wallpapers** (not distributed; used to derive the preset palettes). All artwork belongs to its authors:
 
 | Theme | Image source |
 | --- | --- |
-| Edgerunners - moon | _artist / series / URL to be added_ |
-| Dark room | _artist / series / URL to be added_ |
-| Neon hunter | _artist / series / URL to be added_ |
-| DedSec mono | _artist / series / URL to be added_ |
+| Dark room | "Milk outside a bag of milk outside a bag of milk" (Steam game) by Nikita Kryukov |
+| Edgerunners - moon | *Cyberpunk: Edgerunners* (series), Studio Trigger |
+| ULTRAKILL | *ULTRAKILL* artwork by MrCarlKarlson on Newgrounds |
+| DedSec mono | Artwork by DesuraAgnis on DeviantArt |
 
 ## License
 
