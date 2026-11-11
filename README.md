@@ -1,6 +1,20 @@
 # Monokuro WhatsApp
 
-<!-- TODO: screenshots (chat, group info, themes). Put the images in docs/ and reference them here. -->
+![Monokuro for WhatsApp Web: chat](docs/chat.png)
+
+<details>
+<summary>More screenshots</summary>
+
+![Status view](docs/status.png)
+
+| Dark room | Edgerunners - moon |
+| --- | --- |
+| ![Dark room](docs/theme-dark-room.png) | ![Edgerunners - moon](docs/theme-edgerunners-moon.png) |
+| **Neon hunter** | **DedSec mono** |
+| ![Neon hunter](docs/theme-neon-hunter.png) | ![DedSec mono](docs/theme-dedsec-mono.png) |
+
+Avatars, names and chat-list previews are redacted in these screenshots.
+</details>
 
 A 1-bit style pixel art theme for [WhatsApp Web](https://web.whatsapp.com), inspired by *monokuro world*.
 
@@ -42,9 +56,7 @@ A theme is a palette plus an optional wallpaper, stored as one small JSON file i
 | --- | --- |
 | `edgerunners-moon` | Edgerunners - moon |
 | `dark-room` | Dark room |
-| `red-sun` | Red sun |
 | `neon-hunter` | Neon hunter |
-| `dedsec-acid` | DedSec acid |
 | `dedsec-mono` | DedSec mono |
 
 The wallpapers of the presets are third-party artwork and are **not** distributed (see [Credits](#credits)); the JSON files only hold the palette and the
@@ -199,9 +211,8 @@ MK_WALLPAPER=path/to/image.jpg [MK_WP_BRIGHTNESS=60 MK_WP_BLUR=0 MK_WP_GRAY=0 ..
 | --- | --- |
 | Edgerunners - moon | _artist / series / URL to be added_ |
 | Dark room | _artist / series / URL to be added_ |
-| Red sun | _artist / series / URL to be added_ |
 | Neon hunter | _artist / series / URL to be added_ |
-| DedSec acid, DedSec mono | _artist / series / URL to be added_ |
+| DedSec mono | _artist / series / URL to be added_ |
 
 ## License
 

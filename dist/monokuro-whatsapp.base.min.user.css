@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name        Monokuro for WhatsApp Web
 @namespace   local.monokuro
-@version     2.0.0
+@version     0.56.0
 @description 1-bit black & white pixel theme inspired by the monokuro world portfolio. CUSTOM WALLPAPER (optional): in the options set "Wallpaper image" to a full CSS token: url("https://example.com/image.jpg") [needs the Stylus option "Patch CSP to allow style assets"] or url("data:image/jpeg;base64,...") [works without it: convert your image with any "image to base64" web tool, resize it to ~1280px / under ~300 KB first, and keep the data:image/...;base64, prefix]. none = no wallpaper.
 @license      MIT
 @preprocessor default

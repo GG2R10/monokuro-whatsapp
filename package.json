@@ -1,6 +1,6 @@
 {
   "name": "monokuro-whatsapp",
-  "version": "1.0.0",
+  "version": "0.56.0",
   "description": "Monokuro-inspired 1-bit black & white pixel theme for WhatsApp Web (Stylus userstyle), built from modular CSS",
   "main": "index.js",
   "scripts": {
