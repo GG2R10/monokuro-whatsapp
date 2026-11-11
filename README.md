@@ -141,7 +141,7 @@ src/*.css        base theme, concatenated in filename order (00-tokens … 90-co
 themes/*.json    local theme presets (palette + wallpaper), built into dist/themes/
 src/fx/*.css     optional effects, appended after the base (name scan animation, wallpaper, animated cat logo)
 assets/cat-logo/ source of the pixel-art cat logo: gen.py generates the SVG and a preview; gen_css.py turns the SVG into the two masks in src/fx/30-logo-cat.css
-fonts/           Press Start 2P (SIL OFL), embedded into the CSS as base64 at build time
+fonts/           Press Start 2P (SIL OFL, see `fonts/OFL.txt`), embedded into the CSS as base64 at build time
 gen-rings.js     generates the square, segmented status-ring CSS
 build.js         builds everything into dist/
 dist/            built files (these are what users install)
@@ -205,5 +205,11 @@ MK_WALLPAPER=path/to/image.jpg [MK_WP_BRIGHTNESS=60 MK_WP_BLUR=0 MK_WP_GRAY=0 ..
 
 ## License
 
-The theme embeds Press Start 2P, so it is distributed under the **SIL Open Font License 1.1** (the license of the font). Full text: `LICENSE` (to be added).
+The code and the theme are released under the [MIT License](LICENSE).
+
+### Third-party licenses
+
+* **Press Start 2P** (font), Copyright 2012 The Press Start 2P Project Authors, [SIL Open Font License 1.1](fonts/OFL.txt). The built CSS files embed the
+  unmodified font as base64; the font keeps its own license, which is why every built file carries a notice in its header. The OFL covers the font only, not the rest of the code.
+
 This project is not affiliated with WhatsApp or Meta.

@@ -50,8 +50,12 @@ const mkHeader = (vars) => `/* ==UserStyle==
 @namespace   local.monokuro
 @version     2.0.0
 @description 1-bit black & white pixel theme inspired by the monokuro world portfolio. CUSTOM WALLPAPER (optional): in the options set "Wallpaper image" to a full CSS token: url("https://example.com/image.jpg") [needs the Stylus option "Patch CSP to allow style assets"] or url("data:image/jpeg;base64,...") [works without it: convert your image with any "image to base64" web tool, resize it to ~1280px / under ~300 KB first, and keep the data:image/...;base64, prefix]. none = no wallpaper.
+@license      MIT
 @preprocessor default${vars ? '\n' + varLines : ''}
 ==/UserStyle== */
+/* Monokuro for WhatsApp Web - MIT License. This file embeds the font Press Start 2P (unmodified):
+   Copyright 2012 The Press Start 2P Project Authors (cody@zone38.net), licensed under the SIL Open Font License 1.1
+   (https://openfontlicense.org). Full text: fonts/OFL.txt in the repository. */
 `;
 // conservative minifier: strips comments and layout whitespace but never touches quoted strings / data URIs
 function minify(css) {
