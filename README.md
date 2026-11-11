@@ -59,8 +59,9 @@ A theme is a palette plus an optional wallpaper, stored as one small JSON file i
 | `ultrakill` | ULTRAKILL |
 | `dedsec-mono` | DedSec mono |
 
-The wallpapers of the presets are third-party artwork and are **not** distributed (see [Credits](#credits)); the JSON files only hold the palette and the
-name of the image. You can use the presets as they are (palette only: set the colours from the Stylus options) or build them with your own image.
+Each [release](../../releases) ships the four ready-to-install theme files (`monokuro-whatsapp.<id>.user.css`) next to the default style. They embed the
+preset wallpaper, which is third-party artwork credited in [Credits](#credits) and belongs to its authors. The repository itself only holds the palette
+and the name of the image (`themes/*.json`; the images are not committed), so to build a preset from source you supply your own image.
 
 ### Define your own theme
 
@@ -205,7 +206,7 @@ MK_WALLPAPER=path/to/image.jpg [MK_WP_BRIGHTNESS=60 MK_WP_BLUR=0 MK_WP_GRAY=0 ..
 * **Aesthetic and idea:** *monokuro world* by [@puriririririri](https://twitter.com/puriririririri) and [@mimizuu_uu](https://twitter.com/mimizuu_uu), with [@oekakiconnect](https://twitter.com/oekakiconnect), from [@monokurocorp](https://twitter.com/monokurocorp) on Twitter.
 * **Font:** [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) by CodeMan38, SIL Open Font License 1.1.
 * **Cat logo:** pixel art drawn for this project (`assets/cat-logo/`).
-* **Theme wallpapers** (not distributed; used to derive the preset palettes). All artwork belongs to its authors:
+* **Theme wallpapers** (embedded in the release theme files, not committed to the repository). All artwork belongs to its authors:
 
 | Theme | Image source |
 | --- | --- |
