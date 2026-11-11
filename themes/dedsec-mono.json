@@ -1,0 +1,15 @@
+{
+  "id": "dedsec-mono",
+  "name": "DedSec mono",
+  "wallpaper": "fondos para temas/fondo6.jpg",
+  "maxWidth": 1600,
+  "options": {
+    "paper-color": "#0a0a0a",
+    "ui-color": "#e8e8e8",
+    "text-color": "#cfcfcf",
+    "ring-new-color": "#9bd161",
+    "ring-seen-color": "#555555",
+    "wp-brightness": 80,
+    "wp-fit": "cover"
+  }
+}

@@ -1,0 +1,16 @@
+/* FX: day separator label ("Today", "8/10/2026"): grey text with a one-character white scanner stepping across it, looping.
+   Same technique as 10-name-scan.css (monospaced font: 1ch = one letter; reuses its @keyframes mk-name-scan).
+   Note: lifting each letter (a wiggle) is not possible in pure CSS, because the text is not split into per-letter elements. */
+#app [data-testid="conversation-panel-body"] div:has(> span[dir="auto"]:only-child):not([data-testid="msg-container"] *):not([data-testid="msg-container"]) > span[dir="auto"]:not(#_):not(#_) {
+  --mk-scan-steps: 24; --mk-scan-time: 3.6s;
+  color: transparent !important; -webkit-text-fill-color: transparent !important;
+  background-image: linear-gradient(90deg, var(--mk-fill) 0 1ch, transparent 1ch), linear-gradient(var(--mk-dim-hi), var(--mk-dim-hi)) !important;
+  background-size: calc(var(--mk-scan-steps) * 1ch) 100%, 100% 100% !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position-x: 0, 0;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  animation: mk-name-scan var(--mk-scan-time) steps(24) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  #app [data-testid="conversation-panel-body"] div:has(> span[dir="auto"]:only-child):not([data-testid="msg-container"] *):not([data-testid="msg-container"]) > span[dir="auto"]:not(#_):not(#_) { animation: none !important; color: var(--mk-ink) !important; background: none !important; }
+}

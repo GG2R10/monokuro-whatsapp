@@ -1,0 +1,28 @@
+/* avatars: photos stay in colour, framed square like the portrait in the reference.
+   frame only real avatars (alt=""), never the emoji <img class="emoji"> inside chat names */
+#pane-side img[alt=""], header img[alt=""], #app [data-testid="cell-frame-container"] img[alt=""]:not(#_) { outline: 2px solid var(--mk-ink) !important; outline-offset: 2px !important; }
+#pane-side [aria-selected="true"] img[alt=""]:not(#_):not(#_) { outline-color: var(--mk-on-fill) !important; }
+/* sender avatars beside messages in group chats (WhatsApp only gives them a 10% inset outline) */
+#app [data-testid="group-chat-profile-picture"] img:not(#_):not(#_) { outline: 2px solid var(--mk-ink) !important; outline-offset: 2px !important; }
+
+/* status / default avatars are SVGs masked with a circle: make the mask square, drop the round ring, frame the square */
+#app svg mask circle { r: 100% !important; }
+#app svg g[stroke] circle { display: none !important; }
+#app svg:has(> mask) { outline: 2px solid var(--mk-ink); outline-offset: 0; }
+
+/* STATUS RING on square avatars (group members, chat list): WhatsApp draws a circular ring over our square photo.
+   Hide the circle and draw the same ring as a square outline. Seen = grey var, unseen = green var (unseen wins if both). */
+#app svg:has(circle[stroke*="status-seen"]) { outline: 2px solid var(--WDS-systems-status-seen) !important; outline-offset: 0 !important; }
+#app svg:has(circle[stroke*="activity-indicator"]) { outline: 2px solid var(--WDS-persistent-activity-indicator) !important; outline-offset: 0 !important; }
+#app svg circle[stroke*="status-seen"], #app svg circle[stroke*="activity-indicator"] { display: none !important; }
+
+/* icon boxes that WhatsApp fills with --WDS-accent (white here): New group / contact / community, "Add people or groups", ...
+   -> outlined box, glyph keeps the text colour (white; black when the row is hovered) */
+#app div.xfn3atn:not([role="button"]):not(#_):not(#_) { background-color: var(--mk-paper) !important; border: 2px solid currentColor !important; box-sizing: border-box !important; }
+/* hovered row turns white: the icon box stays a black box with a white glyph so it never merges with the row */
+#app div.xfn3atn:not([role="button"]):not(#_):not(#_):not(#_) { color: var(--mk-ink) !important; border-color: var(--mk-ink) !important; }
+#app div.xfn3atn:not([role="button"]):not(#_):not(#_):not(#_) *:not(#_):not(#_):not(#_) { color: var(--mk-ink) !important; fill: var(--mk-ink) !important; background-color: transparent !important; }
+
+/* 71: "Add member" / "Invite to group via link / email" in group info: 49px icon box filled with the accent colour (glyph invisible) -> outlined box like the other icon boxes */
+#app div.x112a4uq:has(> span[aria-hidden="true"] > svg):not(#_):not(#_) { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; box-sizing: border-box !important; color: var(--mk-ink) !important; }
+#app div.x112a4uq:has(> span[aria-hidden="true"] > svg):not(#_):not(#_) * { color: var(--mk-ink) !important; fill: var(--mk-ink) !important; background-color: transparent !important; }

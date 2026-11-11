@@ -1,0 +1,75 @@
+/* text-only buttons ("Clear all", "View all", "Go to Calls", "Start call"...) are painted by WhatsApp with its own
+   background, which made their white label vanish. Normal = black box + white border, hover = inverted.
+   Inline LINK-style buttons ("Read more", "Turn on") must NOT get a box: they live in banners (role=status/alert)
+   or inside the group description text, so those contexts are excluded. */
+#app button:not([role="tab"]):not([role="radio"]):not([role="checkbox"]):not([aria-selected="true"]):not(:has(svg)):not(:has(img)):not(:has(> [data-testid="media-canvas-img"])):not(:empty):not([data-testid="msg-container"] *):not([role="status"] *):not([role="alert"] *):not(div[dir="ltr"] > div > div > button):not([data-testid="cell-frame-title"] *):not([data-testid="cell-frame-secondary"] *):not([data-testid="drawer-right"] *):not(#_) {
+  background-color: var(--mk-paper) !important;
+  border: 2px solid var(--mk-ink) !important;
+  color: var(--mk-ink) !important;
+}
+/* the hover state must out-rank the box above (this was why the label turned black but the background stayed black) */
+#app button:not([role="tab"]):not([role="radio"]):not([role="checkbox"]):not([aria-selected="true"]):not(:has(svg)):not(:has(img)):not(:has(> [data-testid="media-canvas-img"])):not(:empty):not([data-testid="msg-container"] *):not([role="status"] *):not([role="alert"] *):not(div[dir="ltr"] > div > div > button):not([data-testid="cell-frame-title"] *):not([data-testid="cell-frame-secondary"] *):not([data-testid="drawer-right"] *):not(#_):hover {
+  background-color: var(--mk-fill) !important;
+  color: var(--mk-on-fill) !important;
+}
+#app button:not([role="tab"]):not([role="radio"]):not([role="checkbox"]):not([aria-selected="true"]):not(:has(svg)):not(:has(img)):not(:has(> [data-testid="media-canvas-img"])):not(:empty):not([data-testid="msg-container"] *):not([role="status"] *):not([role="alert"] *):not(div[dir="ltr"] > div > div > button):not([data-testid="cell-frame-title"] *):not([data-testid="cell-frame-secondary"] *):not([data-testid="drawer-right"] *):not(#_):hover * {
+  color: var(--mk-on-fill) !important;
+  background-color: transparent !important;
+}
+
+/* link-style inline buttons: plain underlined text, no box, no background */
+#app :is([role="status"], [role="alert"]) button, #app div[dir="ltr"] > div > div > button:not(:has(svg)) {
+  border: 0 !important;
+  background-color: transparent !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+}
+
+/* buttons used as plain names/labels inside list rows (reactions list: account name, "click to remove") */
+#app :is([data-testid="cell-frame-title"], [data-testid="cell-frame-secondary"]) button:not(#_):not(#_) {
+  border: 0 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+/* inside the info drawer text buttons are inline links ("10 members"), not boxed buttons */
+#app [data-testid="drawer-right"] button:not(:has(svg)):not(:has(img)):not([role="tab"]):not(#_):not(#_) {
+  border: 0 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  text-decoration: underline !important;
+}
+
+/* chats notification banner (data-testid=chat-butterbar): "Turn on" is an inline link, banner gets a bottom rule */
+#app [data-testid="chat-butterbar"] { border-bottom: 2px solid var(--mk-ink) !important; box-sizing: border-box; }
+#app [data-testid="chat-butterbar"] button:not(:has(svg)):not(:has(img)):not(#_):not(#_):not(#_) {
+  border: 0 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  text-decoration: underline !important;
+  color: var(--mk-ink) !important;
+}
+
+/* STATUS VIEWER (data-testid=status-player-uie): the contact-name button and the "shared with close friends" chip float over the
+   status picture. They must be plain text/icons: no box, no black or white fill. */
+#app [data-testid="status-player-uie"] button[data-testid^="status-player-contact"]:not(#_):not(#_):not(#_),
+#app [data-testid="status-player-uie"] button:not([aria-label]):not(#_):not(#_):not(#_) {
+  background-color: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  color: var(--mk-ink) !important;
+}
+#app [data-testid="status-player-uie"] button:not([aria-label]) svg path { fill: var(--mk-ink) !important; }
+
+/* radios / checkboxes are controls, never "text buttons": no box, no fill */
+#app button[role="radio"]:not(#_):not(#_), #app button[role="checkbox"]:not(#_):not(#_) { background-color: transparent !important; padding: 0 !important; }
+
+/* link-style buttons keep their white underlined text on hover (the generic hover would turn the label black over no fill) */
+#app :is([data-testid="drawer-right"], [role="status"], [role="alert"], [data-testid="chat-butterbar"]) button:not(:has(svg)):not(:has(img)):not([role="tab"]):not(#_):not(#_):not(#_):not(#_):hover,
+#app div[dir="ltr"] > div > div > button:not(:has(svg)):not(#_):not(#_):not(#_):not(#_):hover,
+#app :is([data-testid="drawer-right"], [role="status"], [role="alert"], [data-testid="chat-butterbar"]) button:not(:has(svg)):not(:has(img)):not([role="tab"]):not(#_):not(#_):not(#_):not(#_):hover * {
+  color: var(--mk-ink) !important; background-color: transparent !important;
+}
+
+/* 75: link-style button inside a member row ("Add member tag"): while the row is hovered the row is filled with the ink colour, so the label must flip to the on-fill colour (it kept ink = invisible) */
+#app [data-testid="drawer-right"] [role="listitem"]:hover button:not(:has(svg)):not(:has(img)):not([role="tab"]):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_), #app [data-testid="drawer-right"] [role="listitem"]:hover button:not(:has(svg)):not(:has(img)):not([role="tab"]):not(#_):not(#_):not(#_):not(#_):not(#_):not(#_) * { color: var(--mk-on-fill) !important; }

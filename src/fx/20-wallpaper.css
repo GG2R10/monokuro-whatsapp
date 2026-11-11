@@ -1,0 +1,30 @@
+/* FX: chat wallpaper, configurable from Stylus.
+   With `@preprocessor default` Stylus turns every @var of the header into a CSS custom property on :root (--wp-img, --wp-fit, --wp-brightness, ...),
+   so this file just reads var(--wp-*). build.js emits the same :root block with the defaults into dist/inject*.css and the static build.
+   --wp-img must be a full CSS image token: none | url("data:image/jpeg;base64,...") (external https urls need Stylus option "Patch CSP to allow style assets", otherwise WhatsApp's CSP blocks them; base64 data URIs always work)  (url(var(--x)) is not valid CSS).
+   Drawn on conversation-panel-body (the message list; header and compose box stay solid black):
+     ::before = your image (fit / brightness / contrast / saturation / blur / grayscale / opacity)
+     ::after  = 1-bit dither dots in --mk-ink over the image (strength is a slider; 0 = off)
+   WhatsApp's own wallpaper element lives UNDER this and carries a doodle mask, so it cannot host the image. */
+#app [data-testid="conversation-panel-body"]:not(#_) { background: transparent !important; isolation: isolate; }
+#app [data-testid="conversation-panel-body"]:not(#_)::before,
+#app [data-testid="conversation-panel-body"]:not(#_)::after { content: ""; position: absolute; inset: -24px -24px -160px -24px; z-index: -1; pointer-events: none; }
+/* inset -24px: blur() fades the image edge to transparent; the margin keeps that fade outside the visible area (the panel clips it).
+   The bottom margin is large on purpose: the layer also runs under the compose box (the footer sits above the panel body and is transparent, see below). */
+#app [data-testid="conversation-panel-body"]:not(#_)::before {
+  background-image: var(--wp-img, none);
+  background-size: var(--wp-fit, cover); background-position: center; background-repeat: no-repeat;
+  opacity: calc(var(--wp-opacity, 100) / 100);
+  filter: brightness(calc(var(--wp-brightness, 60) / 100)) contrast(calc(var(--wp-contrast, 100) / 100)) saturate(calc(var(--wp-saturate, 100) / 100))
+          grayscale(calc(var(--wp-gray, 0) / 100)) blur(calc(var(--wp-blur, 0) * 1px));
+}
+#app [data-testid="conversation-panel-body"]:not(#_)::after {
+  background-color: var(--mk-ink); -webkit-mask: var(--mk-dither-mask) 0 0 / 8px 8px; mask: var(--mk-dither-mask) 0 0 / 8px 8px; image-rendering: pixelated;
+  opacity: calc(var(--wp-dither, 0) / 100);
+}
+
+/* compose area: the footer strip and its wrappers stop painting black so the wallpaper shows around the message field;
+   only the framed field itself (the element with the 2px border) stays solid black for legibility */
+#main footer:not(#_) { position: relative; z-index: 2; background: transparent !important; }
+#main footer:not(#_) [data-testid="compose-box"] div:has([role="textbox"]):not(#_) { background: transparent !important; }
+#main footer:not(#_) [data-testid="compose-box"] > span > div > div > div:has([role="textbox"]):not(#_):not(#_) { background: var(--mk-paper) !important; }

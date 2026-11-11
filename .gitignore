@@ -1,0 +1,22 @@
+# WhatsApp login session of the Playwright test browser: PRIVATE, never commit
+profile/
+login.log
+qr.png
+
+node_modules/
+
+# local test artefacts and the bug-report screenshots/HTML dropped in the project root (they show private chats)
+shots/
+resolved errors/
+/*.png
+/*.jpg
+/*.jpeg
+/*.html
+
+# static wallpaper build embeds a personal image
+dist/*.wallpaper.user.css
+dist/themes/
+/fondos para temas/
+
+# bug-report folders (screenshots / outer HTML of private chats)
+/error */

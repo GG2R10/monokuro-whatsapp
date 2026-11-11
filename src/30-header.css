@@ -1,0 +1,3 @@
+#main [data-testid="conversation-header"] { border-bottom: var(--mk-line) !important; }
+/* the subgroup/community switcher keeps WhatsApp's own avatar paint: old fill:none / transparent rules emptied it.
+   Hover is handled by the unified system (80-hover.css). */

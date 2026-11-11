@@ -1,0 +1,52 @@
+/* ONE hover system for everything clickable.
+   hover = white box, every descendant black on transparent (WhatsApp paints hover tints on inner divs,
+   which used to cover our white background), icons black via currentColor.
+   Message bubbles are excluded (handled in 40-messages.css). */
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover {
+  background-color: var(--mk-fill) !important;
+  color: var(--mk-on-fill) !important;
+}
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover *:not(img):not(video):not(canvas):not(svg *):not([style*="background"]):not(:has(> input[role="switch"]) *):not([data-testid="status-plus-badge"]):not([data-testid="status-plus-badge"] *) {
+  background-color: transparent !important;
+  color: var(--mk-on-fill) !important;
+  border-color: var(--mk-on-fill) !important;
+}
+/* plain icons recolour through currentColor; avatars (masked SVGs) must keep their own paint */
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover svg:not(:has(mask)) {
+  color: var(--mk-on-fill) !important;
+}
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover svg:not(:has(mask)) path[fill="currentColor"] {
+  fill: var(--mk-on-fill) !important;
+}
+
+/* status "+" badge: stays a black box with a white plus, also when its row is hovered (white row) */
+#app [data-testid="status-plus-badge"] div[role="button"] { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; color: var(--mk-ink) !important; }
+#app [data-testid="status-plus-badge"] * { color: var(--mk-ink) !important; }
+#app [data-testid="status-plus-badge"] svg path { fill: var(--mk-ink) !important; }
+/* group photo picker: keep WhatsApp's own hover tint but make its camera icon white */
+#app [data-testid="group-pic-picker"] * { color: var(--mk-ink) !important; }
+/* "Edit" overlay on a changeable group / profile photo: WhatsApp draws a dark CIRCLE (svg > circle) behind the camera icon; make it a solid square over the whole photo */
+#app [data-testid="group-pic-picker"] button > div:has(> svg > circle):not(#_) { background-color: var(--mk-paper) !important; }
+#app [data-testid="group-pic-picker"] button > div:has(> svg > circle) > svg:not(#_) { display: none !important; }
+
+/* WhatsApp paints its own hover/pressed tint on an absolutely-positioned ::before/::after (or inner div) which,
+   once recoloured black, sat on top of our white hover background. Neutralise those layers while hovered. */
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover::before, #app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover::after,
+#app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover *::before, #app :is(button:not(:empty), [role="button"], [role="menuitem"], [role="listitem"], [role="tab"], [role="option"], li[tabindex], [data-testid="cell-frame-container"], [data-testid="add-favorite"]):not([data-testid="msg-container"] *):not([data-testid="media-viewer-modal"] *):not([data-testid="expressions-panel"] [role="listitem"]):not([data-testid="reaction_emoji_picker"] *):not([role="button"]:has(> [data-testid="cell-frame-container"])):not([data-testid="group-pic-picker"] *):not([data-testid="status-plus-badge"] *):not([data-testid^="chat-theme-"]):not([data-testid^="chat-theme-"] *):hover *::after {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* status "+" badge: hovering the badge itself inverts it (white box, black plus) */
+#app [data-testid="status-plus-badge"]:hover div[role="button"], #app [data-testid="status-plus-badge"] div[role="button"]:hover {
+  background-color: var(--mk-fill) !important; border-color: var(--mk-on-fill) !important;
+}
+#app [data-testid="status-plus-badge"]:hover *, #app [data-testid="status-plus-badge"] div[role="button"]:hover * { color: var(--mk-on-fill) !important; }
+#app [data-testid="status-plus-badge"]:hover svg path, #app [data-testid="status-plus-badge"] div[role="button"]:hover svg path { fill: var(--mk-on-fill) !important; }
+
+/* chat theme tiles keep their preview; hover = white frame instead of a white fill */
+#app [data-testid^="chat-theme-"]:hover { outline: 2px solid var(--mk-ink) !important; outline-offset: 2px !important; }
+
+/* reaction / emoji pickers: highlight the emoji cell itself, never the row */
+#app [data-testid="reaction_emoji_picker"] [role="gridcell"]:hover,
+#app [data-testid="expressions-panel"] [role="gridcell"]:hover { background-color: var(--mk-fill) !important; outline: 2px solid var(--mk-ink); }

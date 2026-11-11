@@ -1,0 +1,22 @@
+/* FX: quoted sender name inside OUR messages.
+   WhatsApp gives it no user colour (always-white class, no palette class), so instead of a made-up colour the name is grey and a
+   one-character white "scanner" steps across it, letter by letter, in a loop.
+   Pure CSS: Press Start 2P is monospaced (1 char = 1ch), so a 1ch-wide gradient band moved with steps(N) lights exactly one glyph at a time.
+   N = 32 steps (names longer than 32 chars just loop their tail). Tune --mk-scan-steps / --mk-scan-time. */
+@keyframes mk-name-scan { from { background-position-x: 0, 0; } to { background-position-x: calc(var(--mk-scan-steps) * 1ch), 0; } }
+
+#app [data-testid="msg-container"] [data-testid="quoted-message"] div.x17t9dm2:not(#_):not(#_) > [data-testid="author"]:first-child:not(#_):not(#_) {
+  --mk-scan-steps: 32; --mk-scan-time: 3.2s;
+  color: transparent !important; -webkit-text-fill-color: transparent !important; filter: none !important;
+  background-image: linear-gradient(90deg, var(--mk-fill) 0 1ch, transparent 1ch), linear-gradient(var(--mk-dim), var(--mk-dim)) !important;
+  background-size: calc(var(--mk-scan-steps) * 1ch) 100%, 100% 100% !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-position-x: 0, 0;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  animation: mk-name-scan var(--mk-scan-time) steps(32) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  #app [data-testid="msg-container"] [data-testid="quoted-message"] div.x17t9dm2:not(#_):not(#_) > [data-testid="author"]:first-child:not(#_):not(#_) {
+    animation: none !important; color: var(--mk-ink) !important; -webkit-text-fill-color: var(--mk-ink) !important; background: none !important;
+  }
+}

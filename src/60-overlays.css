@@ -1,0 +1,72 @@
+[role="dialog"], [role="menu"], ul[role="menu"], [data-animate-modal-popup="true"] {
+  background-color: var(--mk-paper) !important;
+  border: var(--mk-line) !important;
+}
+[role="dialog"] *, [role="menu"] * { background-color: transparent !important; }
+[role="menuitem"]:hover, [role="menuitem"]:hover *, li[role="button"]:hover, li[role="button"]:hover * {
+  background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important;
+}
+[role="dialog"] button:not([aria-hidden="true"]):not(:empty):not([role="radio"]):not([role="checkbox"]):not([role="switch"]) { border: var(--mk-line) !important; text-transform: lowercase; }
+[role="dialog"] button:not([aria-hidden="true"]):not(:empty):not([role="radio"]):not([role="checkbox"]):not([role="switch"]):hover, [role="dialog"] button:not([aria-hidden="true"]):not(:empty):not([role="radio"]):not([role="checkbox"]):not([role="switch"]):hover * { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+[data-testid="drawer-right"] { border-left: var(--mk-line) !important; background-color: var(--mk-paper) !important; }
+
+/* tooltips (hover labels) were light grey with white text */
+[role="tooltip"], [role="tooltip"] * { background-color: var(--mk-paper) !important; color: var(--mk-ink) !important; }
+[role="tooltip"] { border: 2px solid var(--mk-ink) !important; }
+
+/* notification banners (grey) + empty-state panel (dark grey) + primary buttons painted white */
+#app [role="status"] > div > div { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+#app [data-testid="intro-panel"] { background-color: var(--mk-paper) !important; }
+#app [data-testid="intro-panel"] button { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+#app [data-testid="intro-panel"] button:hover { background-color: var(--mk-fill) !important; }
+#app [data-testid="intro-panel"] button:hover * { color: var(--mk-on-fill) !important; }
+
+/* icon boxes that were filled white (add favorite, status "+" badge) */
+#app [data-testid="add-favorite"] div:has(> span[aria-hidden="true"]) { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+#app [data-testid="status-plus-badge"] div[role="button"] { background-color: var(--mk-paper) !important; border: 1px solid var(--mk-ink) !important; }
+
+/* emoji / GIF / sticker panel */
+/* ONE frame on the outer panel container (the one holding both the search box and the emoji grid): the same component
+   is used in chats and in profile fields, the inner <ul> border only existed in the chat instance */
+/* ONE frame for the whole emoji / GIF / sticker popup: the role=application root that holds all three tabs */
+#app div[role="application"]:has(> [data-testid="expressions-panel"]):not(#_) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+#app [data-testid="expressions-panel"] { background-color: var(--mk-paper) !important; }
+#app [role="alert"] > div, #side [role="status"] > div > div { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+
+/* reactions popup: the real container (3 levels above the header) had no border; "click to remove" is a text button, make it a plain label */
+#app div:has(> div > div > [data-testid="reaction-count-header"]) { border: 2px solid var(--mk-ink) !important; box-sizing: border-box; }
+#app [data-testid="reactions-details-cell"] button:not([role="tab"]):not([aria-selected="true"]):not(:has(svg)):not(:has(img)):not(:empty):not([data-testid="msg-container"] *) { border: 0 !important; background-color: transparent !important; color: var(--mk-dim) !important; padding: 0 !important; }
+#app [data-testid="reactions-details-cell"] button:not([role="tab"]):not([aria-selected="true"]):not(:has(svg)):not(:has(img)):not(:empty):not([data-testid="msg-container"] *):hover { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+/* "click to remove": a text button inside the reactions dialog; the generic dialog-button box (above) must not apply */
+#app [role="dialog"] [data-testid="cell-frame-secondary"] button:not([role="tab"]) { border: 0 !important; background-color: transparent !important; color: var(--mk-dim) !important; padding: 0 !important; }
+#app [role="dialog"] [data-testid="cell-frame-secondary"] button:not([role="tab"]):hover { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+/* specificity boost (:not(#_) adds an id each) so this beats the generic text-button + dialog-button boxes */
+#app [role="dialog"] [data-testid="cell-frame-secondary"] button:not(#_):not(#_) { border: 0 !important; background-color: transparent !important; color: var(--mk-dim) !important; padding: 0 !important; }
+#app [role="dialog"] [data-testid="cell-frame-secondary"] button:not(#_):not(#_):hover { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+
+/* Communities: the "New community" icon is a 48px white square that hid its own "+". Outline it instead. */
+#app:has([data-navbar-item][data-navbar-item-selected="true"][aria-label="Communities"]) div[style*="height: 48px"][style*="width: 48px"] {
+  background-color: var(--mk-paper) !important;
+  border: 2px solid var(--mk-ink) !important;
+  box-sizing: border-box;
+}
+
+/* toasts ("Message deleted for me" + Undo): one frame on the pill, nothing inside */
+#app li[data-id^="toast"] > div:not(#_) { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; box-shadow: none !important; }
+#app li[data-id^="toast"] > div *:not(#_) { background-color: transparent !important; border: 0 !important; box-shadow: none !important; outline: 0 !important; }
+#app li[data-id^="toast"] span:not(#_), #app li[data-id^="toast"] [role="alert"]:not(#_) { white-space: nowrap; color: var(--mk-ink) !important; }
+#app li[data-id^="toast"] svg:not(#_) { color: var(--mk-ink); }
+#app li[data-id^="toast"] svg path:not(#_), #app li[data-id^="toast"] svg circle:not(#_) { fill: none; stroke: var(--mk-ink) !important; }
+#app li[data-id^="toast"] svg path[fill="currentColor"]:not(#_) { fill: var(--mk-ink) !important; stroke: none !important; }
+#app li[data-id^="toast"] button:not(#_) { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; color: var(--mk-ink) !important; text-decoration: none !important; padding: 2px 8px !important; white-space: nowrap; }
+#app li[data-id^="toast"] button:hover:not(#_), #app li[data-id^="toast"] button:hover *:not(#_) { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+#app li[data-id^="toast"]:not(#_) { width: max-content !important; max-width: calc(100vw - 32px) !important; }
+#app li[data-id^="toast"] > div:not(#_) { width: max-content !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box !important; gap: 12px; padding-right: 12px !important; }
+#app li[data-id^="toast"] > div > div:not(#_) { flex-shrink: 0 !important; }
+
+/* 69: keyboard-focused dialog button (the default one, e.g. "cancel" in Discard selection?): WhatsApp's focus ring was a 2nd frame around the box */
+[role="dialog"] button:not([aria-hidden="true"]):not(:empty):not([role="radio"]):not([role="checkbox"]):not([role="switch"]):focus-visible:not(#_) { outline: 0 !important; }
+
+/* 77: message reaction picker (role=menu of emoji buttons inside a role=dialog): ONE frame around the bar, no box per emoji and no 2nd frame from the menu */
+#app [role="dialog"] [role="menu"]:has(> button):not(#_):not(#_) { border: 0 !important; }
+#app [role="dialog"] [role="menu"] > button:not(#_):not(#_) { border: 0 !important; }

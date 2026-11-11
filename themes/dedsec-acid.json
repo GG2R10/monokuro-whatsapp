@@ -1,0 +1,15 @@
+{
+  "id": "dedsec-acid",
+  "name": "DedSec acid",
+  "wallpaper": "fondos para temas/fondo5.jpg",
+  "maxWidth": 1600,
+  "options": {
+    "paper-color": "#07000f",
+    "ui-color": "#aed829",
+    "text-color": "#dab3e4",
+    "ring-new-color": "#aed829",
+    "ring-seen-color": "#a617d7",
+    "wp-brightness": 50,
+    "wp-fit": "contain"
+  }
+}

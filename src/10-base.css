@@ -1,0 +1,88 @@
+html, body, #app, #app > div {
+  background: var(--mk-paper) !important;
+  color: var(--mk-ink) !important;
+}
+
+/* flatten everything: no radius, no shadows, no smoothing, pixel font */
+#app *, #app *::before, #app *::after,
+[role="dialog"] *, [role="menu"] * {
+  font-family: var(--mk-font) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: none;
+}
+/* pixel fonts are wide: shrink text a bit */
+#app span, #app div, #app p, #app a, #app button, #app li, #app input {
+  font-size: max(11px, 0.78em);
+  letter-spacing: 0;
+}
+
+/* backgrounds come from the recoloured WhatsApp variables (see 00-tokens.css);
+   wiping them to transparent/black broke stacked panels and overlay layers */
+#app *:not(img):not(video):not(canvas):not(svg):not(svg *) {
+  border-color: var(--mk-ink) !important;
+}
+#app, #app > div, #side, #pane-side, #main,
+#main [data-testid="conversation-panel-wrapper"],
+#main [data-testid="conversation-panel-body"],
+header, footer { background-color: var(--mk-paper) !important; }
+
+/* text colour */
+#app *:not(svg):not(svg *):not([data-testid="author"]):not(div:has(> [data-testid="author"])):not([data-testid="quoted-message"] :has([data-testid="author"])) { color: var(--mk-ink); }
+#app a { text-decoration: underline !important; }
+/* links: saturated blue */
+#app a[href], #app a[href] * { color: var(--mk-link) !important; }
+/* sender names keep WhatsApp's own per-user colour, pushed to be more saturated/brighter on black */
+/* first author span = the name (saved contacts have no aria-label, others do); any later one = @handle / phone number */
+/* Names are controlled by three Stylus options: --name-custom (0/1: replace WhatsApp's per-user colour with --name-color), --name-rainbow (0/1: the
+   colours cycle: the hue of whatever colour the name has is rotated by the shared --mk-hue, so different people stay different).
+   -webkit-text-fill-color mixes the custom colour over the element's OWN colour (currentcolor), so with custom=0 nothing changes.
+   The saturate/brightness boost is meant for WhatsApp's colours only (factor 1 when a custom colour is used). */
+#app [data-testid="author"]:first-child {
+  font-weight: bold;
+  filter: saturate(calc(1 + 1.4 * (1 - var(--name-custom, 0)))) brightness(calc(1 + 0.35 * (1 - var(--name-custom, 0)))) hue-rotate(calc(var(--mk-r-name, 0) * var(--mk-hue, 0) * 1deg));
+  -webkit-text-fill-color: color-mix(in srgb, var(--name-color, #ffffff) calc(var(--name-custom, 0) * 100%), currentcolor);
+}
+#app [data-testid="author"]:not(:first-child) { color: var(--mk-dim) !important; filter: none; }
+::placeholder { color: var(--mk-dim) !important; opacity: 1 !important; }
+::selection { background: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+
+/* secondary text */
+#app [data-testid="cell-frame-secondary-detail"] *,
+#app [data-testid="cell-frame-secondary"] *,
+#app [data-testid="msg-meta"] *,
+#app [data-testid="chat-subtitle"] *,
+#app [data-testid="cell-frame-primary-detail"] > :last-child * { color: var(--mk-dim) !important; }
+/* ...but on a selected / hovered row (solid fill) it is dimmed relative to the fill, so it stays legible on any palette */
+#app [aria-selected="true"] [data-testid="cell-frame-primary-detail"] > :last-child *, #app [data-testid="cell-frame-container"]:hover [data-testid="cell-frame-primary-detail"] > :last-child * { color: var(--mk-dim-on-fill) !important; }
+
+/* icons */
+/* WhatsApp icons use currentColor, so the white text colour already paints them; forcing fill broke illustrations/avatars */
+
+/* scrollbars */
+* { scrollbar-width: thin !important; scrollbar-color: var(--mk-ink) var(--mk-paper) !important; }
+
+/* wallpaper doodle layer -> sparse dither. WhatsApp puts its doodle MASK on this element; the ::before dots below sit inside it, so the
+   doodle still shapes the dither. Dots are drawn with --mk-ink through the --mk-dither-mask alpha mask. */
+[data-testid^="conversation-background"] {
+  background-color: var(--mk-paper) !important;
+  background-image: none !important;
+  opacity: .22 !important;
+  image-rendering: pixelated;
+}
+[data-testid^="conversation-background"]::before {
+  content: ""; position: absolute; inset: 0;
+  background-color: var(--mk-ink);
+  -webkit-mask: var(--mk-dither-mask) 0 0 / 8px 8px; mask: var(--mk-dither-mask) 0 0 / 8px 8px;
+  image-rendering: pixelated;
+}
+[data-testid^="conversation-background"] * { display: none !important; }
+
+/* empty helper buttons (focus traps) got a UA border forced white => stray white dots */
+#app button:empty { border: 0 !important; }
+/* tiny media-placeholder buttons got a 2px forced-white border => stray white dots in the media grid */
+#app button:has(> [data-testid="media-canvas-img"]) { border: 0 !important; }
+
+/* some big icons set their own (black) colour via a class; icons paint with currentColor, so pin it to white */
+#app svg[fill="currentColor"] { color: var(--mk-ink); }

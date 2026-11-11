@@ -1,0 +1,9 @@
+/* FX: rainbow engine. One shared hue, --mk-hue, cycles 0 -> 360 in 36 steps (pixel-style stepping, not a smooth fade, which also keeps the
+   whole-page style recalculation to a few per second). The tokens in 00-tokens.css mix it in per target:
+     UI (--mk-ink / --mk-fill)  hue          chat text (--mk-text)  hue + 180          names  hue-rotate of each person's own colour
+   The animation only runs while at least one of the three rainbow options is on: the duration is max(flags) * seconds, and 0s means no animation.
+   Needs @property (Firefox 128+, Chrome 85+); without it the hue cannot interpolate and rainbow stays on one colour. */
+@property --mk-hue { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes mk-hue-cycle { from { --mk-hue: 0; } to { --mk-hue: 360; } }
+:root { animation: mk-hue-cycle calc(max(var(--mk-r-ui, 0), var(--mk-r-text, 0), var(--mk-r-name, 0)) * var(--rainbow-speed, 12) * 1s) steps(36) infinite; }
+@media (prefers-reduced-motion: reduce) { :root { --mk-r-ui: 0; --mk-r-text: 0; --mk-r-name: 0; animation: none; } }

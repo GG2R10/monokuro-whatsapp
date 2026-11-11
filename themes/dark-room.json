@@ -1,0 +1,16 @@
+{
+  "id": "dark-room",
+  "name": "Dark room",
+  "wallpaper": "fondos para temas/fondo2.png",
+  "maxWidth": 1600,
+  "asJpeg": true,
+  "options": {
+    "paper-color": "#0c0710",
+    "ui-color": "#e0505e",
+    "text-color": "#d9a3ae",
+    "ring-new-color": "#ff6b7a",
+    "ring-seen-color": "#652331",
+    "wp-brightness": 85,
+    "wp-fit": "cover"
+  }
+}

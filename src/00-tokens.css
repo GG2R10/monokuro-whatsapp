@@ -1,0 +1,97 @@
+:root {
+  /* ===== ROLE TOKENS: the only place where the theme's colours are chosen. Everything else uses var(--mk-*) =====
+     paper   every background / surface
+     ink     UI chrome: borders, outlines, icons, UI text  <- --ui-color / --ui-rainbow
+     text    chat text (message bodies, quoted text, the compose box)  <- --text-color / --text-rainbow
+     fill    solid inverted fills: hover, selected row, send button, badges, icon boxes
+     on-fill text / icons drawn on top of a fill
+     dim ... greys for secondary text; row = selected list row; link / mention = accents */
+  --mk-paper: var(--paper-color, #000000);   /* background colour: Stylus option (default black) */
+  /* User-configurable inputs come from Stylus @var (see VARS in build.js) as custom properties: --ui-color, --text-color, --name-color,
+     --ui-rainbow / --text-rainbow / --name-rainbow (0 or 1), --rainbow-speed, --rainbow-light. Every one has a fallback here, so the base
+     build (no @var header) and the harness work unchanged. --mk-hue is the shared rainbow hue, animated by src/fx/50-rainbow.css. */
+  --mk-r-ui: var(--ui-rainbow, 0);
+  --mk-r-text: var(--text-rainbow, 0);
+  --mk-r-name: var(--name-rainbow, 0);
+  --mk-rb-l: calc(var(--rainbow-light, 62) * 1%);
+  /* rainbow mix: 0 -> the chosen fixed colour, 1 -> the cycling colour (UI and chat text are 180deg apart on the colour wheel) */
+  --mk-ink: color-mix(in srgb, hsl(var(--mk-hue, 0) 100% var(--mk-rb-l)) calc(var(--mk-r-ui) * 100%), var(--ui-color, #ffffff));
+  --mk-text: color-mix(in srgb, hsl(calc(var(--mk-hue, 0) + 180) 100% var(--mk-rb-l)) calc(var(--mk-r-text) * 100%), var(--text-color, #ffffff));
+  --mk-fill: var(--mk-ink);
+  --mk-on-fill: var(--mk-paper);              /* what is drawn on a fill is the paper colour, so inverted states stay legible on any palette */
+  /* greys are the ink / text colour dimmed towards the paper colour (47.843% = 0x7a/0xff ...), so they follow the chosen colour */
+  --mk-dim: color-mix(in srgb, var(--mk-ink) 47.843%, var(--mk-paper));
+  /* secondary text drawn ON a fill (time stamp in a selected / hovered row): on-fill dimmed towards the fill; 52.157% reproduces #7a7a7a on white */
+  --mk-dim-on-fill: color-mix(in srgb, var(--mk-on-fill) 52.157%, var(--mk-fill));
+  --mk-dim-hi: color-mix(in srgb, var(--mk-ink) 54.902%, var(--mk-paper));
+  --mk-quote: color-mix(in srgb, var(--mk-text) 60.392%, var(--mk-paper));
+  --mk-row: color-mix(in srgb, var(--mk-ink) 20%, var(--mk-paper));
+  --mk-link: #2f8cff;
+  --mk-mention: #ff2bd6;
+  --mk-line: 2px solid var(--mk-ink);
+  --mk-font: "Press Start 2P", "VT323", "DotGothic16", "Unifont", "Courier New", monospace;
+  --mk-ring-new: var(--ring-new-color, #21c063);    /* status ring: unviewed segments (Stylus option) */
+  --mk-ring-seen: var(--ring-seen-color, #666666);  /* status ring: viewed segments (Stylus option) */
+  /* 1-bit dither as an ALPHA MASK (dots only): paint it with any colour via background-color + mask */
+  --mk-dither-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='4' shape-rendering='crispEdges'><rect width='1' height='1'/><rect x='2' y='2' width='1' height='1'/></svg>");
+}
+
+/* WhatsApp design tokens -> black/white (covers light and dark mode) */
+html, body, .light, .dark, :root, #app {
+  --WDS-surface-default: var(--mk-paper) !important;
+  --WDS-surface-highlight: var(--mk-paper) !important;
+  --WDS-surface-raised: var(--mk-paper) !important;
+  --WDS-surface-elevated: var(--mk-paper) !important;
+  --WDS-content-default: var(--mk-ink) !important;
+  --WDS-content-deemphasized: var(--mk-dim) !important;
+  --WDS-content-action: var(--mk-ink) !important;
+  --WDS-border-default: var(--mk-ink) !important;
+  --WDS-accent: var(--mk-fill) !important;
+  --app-background: var(--mk-paper) !important;
+  --panel-background: var(--mk-paper) !important;
+  --conversation-panel-background: var(--mk-paper) !important;
+  --border-list: var(--mk-ink) !important;
+  --primary: var(--mk-ink) !important;
+  --primary-strong: var(--mk-ink) !important;
+  --secondary: var(--mk-dim) !important;
+  --icon: var(--mk-ink) !important;
+  --teal: var(--mk-ink) !important;
+  --accent: var(--mk-fill) !important;
+  --incoming-background: var(--mk-paper) !important;
+  --outgoing-background: var(--mk-paper) !important;
+  --input-background: var(--mk-paper) !important;
+  --drawer-background: var(--mk-paper) !important;
+  --modal-background: var(--mk-paper) !important;
+  --dropdown-background: var(--mk-paper) !important;
+  --shadow: transparent !important;
+
+  /* surfaces WhatsApp paints with variables: recolour them instead of wiping every background */
+  --WDS-surface-emphasized: var(--mk-paper) !important;
+  --WDS-surface-elevated-emphasized: var(--mk-paper) !important;
+  --WDS-surface-elevated-default: var(--mk-paper) !important;
+  --WDS-surface-pressed: var(--mk-paper) !important;
+  --WDS-background-wash-inset: var(--mk-paper) !important;
+  --WDS-background-wash-plain: var(--mk-paper) !important;
+  --WDS-background-dimmer: var(--mk-paper) !important;
+  --WDS-systems-bubble-surface-incoming: var(--mk-paper) !important;
+  --WDS-systems-bubble-surface-outgoing: var(--mk-paper) !important;
+  --WDS-systems-bubble-surface-overlay: var(--mk-paper) !important;
+  --WDS-systems-bubble-surface-system: var(--mk-paper) !important;
+  --WDS-components-active-list-row: var(--mk-row) !important;
+  --WDS-surface-default-RGB: 0, 0, 0 !important;
+  --WDS-surface-highlight-RGB: 0, 0, 0 !important;
+  --WDS-systems-bubble-surface-incoming-RGB: 0, 0, 0 !important;
+  --WDS-systems-bubble-surface-outgoing-RGB: 0, 0, 0 !important;
+  --WDS-systems-bubble-surface-overlay-RGB: 0, 0, 0 !important;
+  --WDS-accent-RGB: 255, 255, 255 !important;
+  --WDS-accent-deemphasized: var(--mk-paper) !important;
+  --background-default-rgb: 0, 0, 0 !important;
+  --background-focused: var(--mk-paper) !important;
+  --card-background: var(--mk-paper) !important;
+  --comment-background: var(--mk-paper) !important;
+  --wash: var(--mk-paper) !important;
+  --input-background-disabled: var(--mk-paper) !important;
+  --hover-overlay: transparent !important;
+  --press-overlay: transparent !important;
+  --WAWeb-msg-hover-tint: transparent !important;
+}

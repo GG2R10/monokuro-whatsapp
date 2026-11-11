@@ -1,0 +1,83 @@
+/* bubbles: incoming = outlined box, outgoing = outlined + inner frame */
+[data-testid="msg-container"] > div:first-of-type {
+  background-color: var(--mk-paper) !important;
+  border: var(--mk-line) !important;
+  color: var(--mk-ink) !important;
+}
+/* own messages use the same single frame as incoming ones (the double frame read as a duplicated border) */
+#app [data-testid="msg-container"] *:not([data-testid="author"]):not(div:has(> [data-testid="author"])):not([data-testid="quoted-message"] :has([data-testid="author"])):not(#_) { color: var(--mk-text); }
+[data-testid="msg-container"] [data-testid="msg-meta"] * { color: var(--mk-dim) !important; }
+
+/* tails */
+[data-icon^="tail"], [data-testid^="tail"] { display: none !important; }
+
+/* quoted reply */
+/* dashed rule on top and bottom only (no sides); the quoted text is grey so it reads as secondary to the reply itself */
+[data-testid="quoted-message"] { border: 0 !important; border-top: 1px dashed var(--mk-ink) !important; border-bottom: 1px dashed var(--mk-ink) !important; }
+[data-testid="quoted-message"] > * { border: 0 !important; }
+#app [data-testid="quoted-message"] [data-testid="selectable-text"]:not(#_):not(#_):not(#_), #app [data-testid="quoted-message"] .quoted-mention:not(#_):not(#_):not(#_) { color: var(--mk-quote) !important; }
+
+/* date chips / system rows */
+#main [data-testid="conversation-panel-messages"] [role="row"] > div > span {
+  border: var(--mk-line) !important;
+  background-color: var(--mk-paper) !important;
+  text-transform: lowercase;
+}
+
+/* the "message options" chevron brings a radial fade painted in the bubble colour; kill it so it can never tint the bubble */
+#app [data-testid="msg-container"] :is(div, span):has(> [data-testid="icon-down-context"]) { background-image: none !important; }
+
+/* name strip + time chip over media/stickers: always solid black (they came out grey with WhatsApp's translucent overlay tint) */
+#app [data-testid="msg-container"] [data-testid="msg-meta"],
+#app [data-testid="msg-container"] div:has(> [data-testid="author"]) { background-color: var(--mk-paper) !important; }
+#app [data-testid="reaction-bubble"], #app [data-testid="reaction-bubble-item"] { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+
+/* 48: the floating date pill (sticky "Today"/"Yesterday" at the top) was missing its frame */
+#main div[pointerevents="none"] div:has(> span[dir="auto"]) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+/* day separator ("Today", "8/10/2026"): the pill is the plain div around the label (no testid, no pointerevents attribute any more) */
+#main [data-testid="conversation-panel-body"] div:has(> span[dir="auto"]:only-child):not([data-testid="msg-container"] *):not([data-testid="msg-container"]):not([data-testid="msg-notification-container"] *):not(#_) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+
+/* the little buttons that pop up beside a message on hover (react / forward) */
+#app :is([data-testid="reaction-entry-point"], [role="button"][aria-label^="Forward"]):not(#_):not(#_) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+/* 49: time chip on emoji-only / sticker-like messages keeps the chat-theme bubble colour: force solid black on the chip and all its children */
+#app [data-testid="msg-container"] [data-testid="msg-meta"], #app [data-testid="msg-container"] [data-testid="msg-meta"] * { background-color: var(--mk-paper) !important; }
+/* 46: reaction pill = ONE frame (on the button); the inner item must not add a second box */
+#app [data-testid="reaction-bubble-item"] { border: 0 !important; }
+
+/* reaction pill: exactly ONE frame (the button). The inner count wrapper had a 1px border (forced white) = 2nd box around the emoji */
+#app [data-testid="reaction-bubble"] > div, #app [data-testid="reaction-bubble"] > div * { border: 0 !important; background-color: transparent !important; }
+
+/* sticker-only messages: the wrappers AROUND the author line / msg-meta carry the incoming-bubble surface (Firefox) */
+#app [data-testid="msg-container"] div:has(> div > [data-testid="author"]):not(#_),
+#app [data-testid="msg-container"] div:has(> [data-testid="msg-meta"]):not(#_),
+#app [data-testid="msg-container"] div:has(> div > [data-testid="msg-meta"]):not(#_) { background-color: var(--mk-paper) !important; --WDS-systems-bubble-surface-incoming: var(--mk-paper); }
+
+/* typing ("escribiendo…") bubble: lottie dots in an incoming-surface container */
+#app div:has(> div > div > div > svg[viewBox="0 0 72 72"][preserveAspectRatio]):not(#_) { background-color: var(--mk-paper) !important; border: 0 !important; }
+#app div:has(> div > div > svg[viewBox="0 0 72 72"][preserveAspectRatio]) path[fill^="rgb(134"] { fill: var(--mk-ink) !important; }
+
+/* member tag under the sender name (group members' custom label): grey */
+#app [data-testid="msg-container"] div:has(> [data-testid="author"]) + div > div[role="button"] > span:only-child:not(:has(*)):not(#_):not(#_):not(#_):not(#_) { color: var(--mk-dim-hi) !important; }
+
+/* sender line must never poke out of the bubble: name and number both shrink with an ellipsis */
+#app [data-testid="msg-container"] div:has(> [data-testid="author"]):not(#_) { min-width: 0; max-width: 100%; overflow: hidden; }
+#app [data-testid="msg-container"] [data-testid="author"]:not(#_) { min-width: 0; flex-shrink: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* @mentions inside message text (saved contacts and unknown numbers share this markup): neon pink */
+#app [data-testid="msg-container"] span[data-app-text-template][data-plain-text^="@"]:not(#_):not(#_):not(#_):not(#_),
+#app [data-testid="msg-container"] span[data-app-text-template][data-plain-text^="@"] *:not(#_):not(#_):not(#_):not(#_) { color: var(--mk-mention) !important; }
+
+/* 70: system labels ("X left", "X joined"): ONE frame on the pill itself; the member name inside is a plain link (it inherited the day-separator frame) */
+#app [data-testid="msg-notification-container"]:not(#_):not(#_) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+/* 73: "N unread messages" divider */
+#main [data-testid="conversation-panel-messages"] span[aria-live="polite"]:has(> span:only-child):not(#_):not(#_) { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+
+/* 72: the reply popup above the composer is its own component: solid frame (top/left/right; the composer's frame closes it) instead of the dashed rules used for quotes inside sent messages */
+#main [data-testid="popup_panel"]:has([data-testid="quoted-message"]):not(#_):not(#_) { border: 2px solid var(--mk-ink) !important; border-bottom: 0 !important; box-sizing: border-box; }
+#main [data-testid="popup_panel"] [data-testid="quoted-message"]:not(#_):not(#_) { border: 0 !important; }
+
+/* 76: quote bar in OWN messages is painted with the always-white token (incoming ones use the author's colour): follow the ink colour; scoped to the bar so the token keeps white elsewhere */
+#app [aria-label="Quoted message"] > span:first-child:empty:not(#_) { --WDS-persistent-always-white: var(--mk-ink); }
+
+/* 78: "Read more" inside long messages: UI ink + underline so it reads as clickable (it took the message text colour) */
+#app [data-testid="caption-read-more-button"]:not(#_):not(#_):not(#_):not(#_), #app [data-testid="caption-read-more-button"]:not(#_):not(#_):not(#_):not(#_) * { color: var(--mk-ink) !important; text-decoration: underline !important; }

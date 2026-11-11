@@ -1,0 +1,32 @@
+/* no footer border-top: the compose box has its own frame (it doubled the top line) */
+#main footer { border-top: 0 !important; }
+#main footer [data-testid="compose-box"] [role="textbox"] {
+  border: 0 !important;
+  color: var(--mk-text) !important;
+  caret-color: var(--mk-text);
+}
+#main footer [data-testid="compose-box"] > span > div > div > div:has([role="textbox"]) {
+  border: var(--mk-line) !important;
+}
+#main footer button[aria-label*="end"], #main footer [data-testid="send"] {
+  background-color: var(--mk-fill) !important;
+}
+#main footer button[aria-label*="end"] svg *, #main footer [data-testid="send"] svg * { fill: var(--mk-on-fill) !important; }
+
+/* input wrapper is painted white by a WhatsApp variable */
+#main footer [data-testid="compose-box"] div:has([role="textbox"]) { background-color: var(--mk-paper) !important; }
+
+/* "Send" buttons that are <div role=button> (publish status, send images/media preview...): WhatsApp paints them solid white with a
+   white icon. Same look as the chat composer's send button: white box, BLACK icon. */
+#app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_) { background-color: var(--mk-fill) !important; border: 2px solid var(--mk-ink) !important; color: var(--mk-on-fill) !important; }
+#app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_) * { color: var(--mk-on-fill) !important; background-color: transparent !important; }
+#app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_) svg, #app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_) svg path { fill: var(--mk-on-fill) !important; }
+#app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_):hover { background-color: var(--mk-paper) !important; }
+#app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_):hover *, #app [role="button"]:is([aria-label^="Send"], [aria-label="Confirm"]):not(:has(img)):not(:has(video)):not(:has(canvas)):not(#_):hover svg path { color: var(--mk-ink) !important; fill: var(--mk-ink) !important; }
+
+/* 74: @mention being typed in the composer (lexical mention node): same neon pink as mentions in sent messages */
+#main footer [role="textbox"] span[data-app-text-template]:not(#_):not(#_), #main footer [role="textbox"] span[data-app-text-template] *:not(#_):not(#_) { color: var(--mk-mention) !important; }
+
+/* composer text 1px larger than the UI size without growing the box: WhatsApp sizes the field in em (min 1.47em / max 11.76em), so pin those at the 11px values */
+#main footer [data-testid="compose-box"] [role="textbox"]:not(#_):not(#_) { font-size: 12px !important; line-height: 16.17px !important; min-height: 16.17px !important; max-height: 129.36px !important; }
+#main footer [data-testid="compose-box"] [role="textbox"] + div[aria-hidden="true"] > div:not(#_):not(#_), #main footer [data-testid="compose-box"] [role="textbox"] ~ div[aria-hidden="true"] > div:not(#_):not(#_) { font-size: 12px !important; line-height: 16.17px !important; }

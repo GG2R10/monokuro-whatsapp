@@ -1,0 +1,16 @@
+{
+  "id": "red-sun",
+  "name": "Red sun",
+  "wallpaper": "fondos para temas/fondo3.png",
+  "maxWidth": 1600,
+  "options": {
+    "paper-color": "#070002",
+    "ui-color": "#e01835",
+    "text-color": "#f2a0aa",
+    "ring-new-color": "#ff3b5c",
+    "ring-seen-color": "#6b1a26",
+    "wp-brightness": 70,
+    "wp-fit": "cover"
+  },
+  "asJpeg": true
+}

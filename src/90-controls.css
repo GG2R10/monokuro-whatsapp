@@ -1,0 +1,26 @@
+/* switches (poll options, settings...): track div + knob div + hidden input[role=switch].
+   off = outlined track, white knob.  on = white track, black knob. */
+#app :has(> input[role="switch"]) > div:first-child { border: 2px solid var(--mk-ink) !important; background-color: var(--mk-paper) !important; box-sizing: border-box; }
+#app :has(> input[role="switch"]) > div:nth-child(2) { background-color: var(--mk-fill) !important; }
+#app :has(> input[role="switch"][aria-checked="true"]) > div:first-child { background-color: var(--mk-fill) !important; }
+#app :has(> input[role="switch"][aria-checked="true"]) > div:nth-child(2) { background-color: var(--mk-paper) !important; }
+
+/* floating field labels ("Duration", "Share a thought"): an absolutely-positioned wrapper sits ON the top border of the field,
+   so the border strikes through the text. Give the wrapper a black background (+ a little side padding) so it "cuts" the border. */
+#app div:has(+ button[data-testid="text-status-ephemeral-durations-dropdown"]),
+#app div.x10l6tqk:has(> span[style*="--x-fontSize: 12px"]) {
+  background-color: var(--mk-paper) !important;
+  width: fit-content !important;
+  right: auto !important;
+  padding: 0 6px !important;
+  z-index: 2 !important;
+}
+
+/* "Current mood" and any other floating <label> that sits right before its text input: same notch as above */
+#app label.html-label:has(+ input[role="textbox"]) {
+  background-color: var(--mk-paper) !important;
+  width: fit-content !important;
+  right: auto !important;
+  padding: 0 6px !important;
+  z-index: 2 !important;
+}

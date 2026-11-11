@@ -1,0 +1,15 @@
+{
+  "id": "edgerunners-moon",
+  "name": "Edgerunners - moon",
+  "wallpaper": "fondos para temas/fondo1.jpg",
+  "maxWidth": 1600,
+  "options": {
+    "paper-color": "#050b12",
+    "ui-color": "#f4f92f",
+    "text-color": "#eae1c9",
+    "ring-new-color": "#46d6c8",
+    "ring-seen-color": "#435f7f",
+    "wp-brightness": 55,
+    "wp-fit": "cover"
+  }
+}

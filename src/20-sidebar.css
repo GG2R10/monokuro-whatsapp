@@ -1,0 +1,47 @@
+/* left nav rail + chat list */
+#side, #app [data-testid="chatlist-header"] { border-right: var(--mk-line) !important; }
+#app [data-testid="chatlist-header"] { border-bottom: var(--mk-line) !important; }
+
+#pane-side [role="listitem"] { border-bottom: 1px solid var(--mk-ink) !important; }
+/* selected / hovered row: ONLY the exact row box (cell-frame-container, 72px) is white.
+   The avatar wrappers inside are 73px tall, so painting every descendant white leaked a 1px strip above the row. */
+#pane-side [aria-selected="true"] [data-testid="cell-frame-container"],
+#pane-side [role="listitem"]:hover [data-testid="cell-frame-container"] {
+  background-color: var(--mk-fill) !important;
+}
+#pane-side [aria-selected="true"] *:not(img):not(svg *),
+#pane-side [role="listitem"]:hover *:not(img):not(svg *) {
+  background-color: transparent !important;
+  color: var(--mk-on-fill) !important;
+}
+#pane-side [aria-selected="true"] [data-testid="icon-unread-count"],
+#pane-side [role="listitem"]:hover [data-testid="icon-unread-count"] { border: 2px solid var(--mk-on-fill) !important; }
+#pane-side [aria-selected="true"] svg:not(:has(mask)) { color: var(--mk-on-fill) !important; }
+#pane-side [aria-selected="true"] svg:not(:has(mask)) path[fill="currentColor"] { fill: var(--mk-on-fill) !important; }
+
+/* unread counters + green dots: inverted boxes */
+#app [aria-label*="unread"]:not(input):not([role="textbox"]), #app [data-testid="icon-unread-count"],
+#app span[aria-label*="no leíd"] {
+  background-color: var(--mk-fill) !important;
+  color: var(--mk-on-fill) !important;
+}
+#app [aria-label*="unread"]:not(input):not([role="textbox"]) *, #app [data-testid="icon-unread-count"] * { color: var(--mk-on-fill) !important; }
+
+/* filter pills + search */
+#side button[role="tab"], #side button[role="radio"], #side [role="button"][aria-label] { border: 2px solid var(--mk-ink) !important; }
+#side [aria-selected="true"][role="tab"], #side [aria-checked="true"] { background-color: var(--mk-fill) !important; color: var(--mk-on-fill) !important; }
+#side [aria-selected="true"][role="tab"] *, #side [aria-checked="true"] * { color: var(--mk-on-fill) !important; }
+#side [role="textbox"], #side input { border: 0 !important; outline: 0 !important; }
+/* one border only, on the field wrapper (the container is taller and clashed with the filter pills) */
+#side [data-testid="chat-list-search-container"], #side [data-testid="chat-list-search"] { border: 0 !important; }
+#side [data-testid="chat-list-search-container"] div:has(> div > input) {
+  border: 0 !important; border-bottom: var(--mk-line) !important; /* underline only */
+  box-sizing: border-box;
+  outline: 0 !important;
+}
+
+/* header action buttons (new chat etc.) were painted solid white, hiding their white icon */
+#app header:not([data-testid="conversation-header"]) button:has(svg):not([data-testid="navbar-primary-section"] *) { background-color: var(--mk-paper) !important; border: 2px solid var(--mk-ink) !important; }
+
+/* unread-count badge on the nav bar's chats icon: WhatsApp's own green fill -> paper, framed in ink like the rest */
+#app [data-testid="navbar-primary-section"] span[role="status"]:not(#_):not(#_) { background-color: var(--mk-paper) !important; }

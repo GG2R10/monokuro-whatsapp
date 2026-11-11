@@ -1,0 +1,15 @@
+{
+  "id": "neon-hunter",
+  "name": "Neon hunter",
+  "wallpaper": "fondos para temas/fondo4.jpg",
+  "maxWidth": 1400,
+  "options": {
+    "paper-color": "#0f0a2a",
+    "ui-color": "#7df0ff",
+    "text-color": "#ffd9f6",
+    "ring-new-color": "#ebe753",
+    "ring-seen-color": "#c822b9",
+    "wp-brightness": 45,
+    "wp-fit": "cover"
+  }
+}
